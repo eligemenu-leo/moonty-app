@@ -26,6 +26,7 @@ export default function RootLayout() {
             <Stack.Screen name="restaurant/[slug]" options={{ headerShown: false }} />
             <Stack.Screen name="cart"              options={{ presentation: 'modal', title: 'Tu carrito' }} />
             <Stack.Screen name="checkout"          options={{ title: 'Confirmar pedido' }} />
+            <Stack.Screen name="payment/success"      options={{ headerShown: false }} />
             <Stack.Screen name="seguimiento/[token]" options={{ headerShown: false }} />
             <Stack.Screen name="auth/login"        options={{ headerShown: false }} />
             <Stack.Screen name="auth/register"     options={{ headerShown: false }} />

@@ -136,7 +136,9 @@ export default function CheckoutScreen() {
     const url = nav.url;
     if (url.includes('/payment/success')) {
       clearCart();
-      router.replace('/(tabs)/orders');
+      const paramMatch = url.match(/[?&]order_id=([^&]+)/);
+      const oid = paramMatch ? paramMatch[1] : orderId;
+      router.replace(oid ? `/payment/success?order_id=${oid}` : '/(tabs)/orders');
     } else if (url.includes('/payment/cancelled')) {
       setRedsysHtml(null); // volver al formulario
     }
