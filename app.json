@@ -1,23 +1,24 @@
 {
   "expo": {
-    "name": "moonty-app",
+    "name": "Moonty",
     "slug": "moonty-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "moontyapp",
+    "scheme": "moonty",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.moonty.app"
     },
     "android": {
+      "package": "com.moonty.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#16a34a"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": true
     },
     "web": {
       "bundler": "metro",
@@ -33,10 +34,24 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      "expo-secure-store",
+      "expo-image",
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification-icon.png",
+          "color": "#16a34a"
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "supabaseUrl": "https://seqmbudpsvsjbybjotuy.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlcW1idWRwc3ZzamJ5YmpvdHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwNDIwNDEsImV4cCI6MjA2OTYxODA0MX0.ccfX9W8GCaTW7GTC6yu2XmEHU72W0ZaoqYpRCX6iTW8"
     }
   }
 }
