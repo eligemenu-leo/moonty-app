@@ -7,6 +7,7 @@ import 'react-native-url-polyfill/auto';
 import { useColorScheme } from '@/components/useColorScheme';
 import { CartProvider } from '@/components/CartProvider';
 import { AuthProvider } from '@/components/AuthProvider';
+import { PushNotificationManager } from '@/components/PushNotificationManager';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -21,6 +22,7 @@ export default function RootLayout() {
     <AuthProvider>
       <CartProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <PushNotificationManager />
           <Stack>
             <Stack.Screen name="(tabs)"            options={{ headerShown: false }} />
             <Stack.Screen name="restaurant/[slug]" options={{ headerShown: false }} />

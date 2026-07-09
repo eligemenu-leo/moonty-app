@@ -50,6 +50,9 @@
       "typedRoutes": true
     },
     "extra": {
+      "eas": {
+        "projectId": "COMPLETAR_CON_eas_init"
+      },
       "supabaseUrl": "https://seqmbudpsvsjbybjotuy.supabase.co",
       "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlcW1idWRwc3ZzamJ5YmpvdHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwNDIwNDEsImV4cCI6MjA2OTYxODA0MX0.ccfX9W8GCaTW7GTC6yu2XmEHU72W0ZaoqYpRCX6iTW8"
     }
