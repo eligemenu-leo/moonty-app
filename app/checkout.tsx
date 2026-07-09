@@ -100,7 +100,7 @@ export default function CheckoutScreen() {
             id:       i.dish.id,
             type:     'dish',
             name:     i.dish.name,
-            price:    i.dish.price,
+            price:    i.dish.price_1,
             quantity: i.quantity,
           })),
           notes:    form.notes.trim() || undefined,
@@ -189,7 +189,7 @@ export default function CheckoutScreen() {
             <View key={i.dish.id} style={styles.lineRow}>
               <Text style={[styles.lineQty, { color: muted }]}>{i.quantity}×</Text>
               <Text style={[styles.lineName, { color: text }]}>{i.dish.name}</Text>
-              <Text style={[styles.linePrice, { color: text }]}>{(i.dish.price * i.quantity).toFixed(2)} €</Text>
+              <Text style={[styles.linePrice, { color: text }]}>{(i.dish.price_1 * i.quantity).toFixed(2)} €</Text>
             </View>
           ))}
           <View style={[styles.divider, { backgroundColor: border }]} />

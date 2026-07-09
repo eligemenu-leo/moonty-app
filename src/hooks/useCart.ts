@@ -37,7 +37,7 @@ export function useCart() {
     setRestName('');
   }, []);
 
-  const total    = items.reduce((s, i) => s + i.dish.price * i.quantity, 0);
+  const total    = items.reduce((s, i) => s + i.dish.price_1 * i.quantity, 0);
   const count    = items.reduce((s, i) => s + i.quantity, 0);
 
   return { items, total, count, restaurantId, restaurantName, addItem, removeItem, clearCart };

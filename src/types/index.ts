@@ -18,7 +18,7 @@ export interface Restaurant {
 export interface DishGroup {
   id: string;
   name: string;
-  position: number;
+  order_position: number;
   dishes: Dish[];
 }
 
@@ -26,10 +26,11 @@ export interface Dish {
   id: string;
   name: string;
   description: string | null;
-  price: number;
+  price_1: number;
   image_url: string | null;
-  is_available: boolean;
+  visibility: boolean;
   allergens: string[] | null;
+  dish_group_id: string;
 }
 
 export interface CartItem {

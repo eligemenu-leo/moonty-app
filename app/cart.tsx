@@ -51,7 +51,7 @@ export default function CartScreen() {
           <View style={[styles.row, { backgroundColor: card }]}>
             <View style={{ flex: 1 }}>
               <Text style={[styles.dishName, { color: text }]}>{item.dish.name}</Text>
-              <Text style={[styles.price, { color: ACCENT }]}>{(item.dish.price * item.quantity).toFixed(2)} €</Text>
+              <Text style={[styles.price, { color: ACCENT }]}>{(item.dish.price_1 * item.quantity).toFixed(2)} €</Text>
             </View>
             <View style={styles.qtyRow}>
               <TouchableOpacity style={styles.qtyBtn} onPress={() => removeItem(item.dish.id)}>

@@ -28,6 +28,7 @@ export default function RestaurantScreen() {
 
   useEffect(() => {
     async function load() {
+      // 1. Restaurante por slug
       const { data: rest } = await supabase
         .from('restaurants')
         .select('*')
@@ -36,12 +37,41 @@ export default function RestaurantScreen() {
       if (!rest) { setLoading(false); return; }
       setRestaurant(rest);
 
-      const { data: grps } = await supabase
+      // 2. Cartas visibles del restaurante (misma lógica que la web)
+      const { data: menus } = await supabase
+        .from('menus')
+        .select('id')
+        .eq('restaurant_id', rest.id)
+        .neq('moonty_is_visible', false);
+      const menuIds = (menus ?? []).map((m: any) => m.id);
+      if (!menuIds.length) { setLoading(false); return; }
+
+      // 3. Grupos de platos visibles para esas cartas
+      const { data: groups } = await supabase
         .from('dish_groups')
-        .select('id,name,position,dishes(id,name,description,price,image_url,is_available,allergens)')
-        .eq('menu_id', rest.id) // ajustar según estructura real
-        .order('position');
-      setGroups((grps ?? []) as any);
+        .select('id, name, order_position')
+        .in('menu_id', menuIds)
+        .neq('visibility', false)
+        .order('order_position');
+      const groupIds = (groups ?? []).map((g: any) => g.id);
+      if (!groupIds.length) { setLoading(false); return; }
+
+      // 4. Platos visibles de esos grupos
+      const { data: dishes } = await supabase
+        .from('dishes')
+        .select('id, name, description, price_1, image_url, allergens, dish_group_id, order_position')
+        .in('dish_group_id', groupIds)
+        .neq('visibility', false)
+        .order('order_position');
+
+      // 5. Indexar platos por grupo
+      const byGroup = new Map<string, any[]>();
+      for (const d of dishes ?? []) {
+        if (!byGroup.has(d.dish_group_id)) byGroup.set(d.dish_group_id, []);
+        byGroup.get(d.dish_group_id)!.push(d);
+      }
+
+      setGroups((groups ?? []).map((g: any) => ({ ...g, dishes: byGroup.get(g.id) ?? [] })));
       setLoading(false);
     }
     load();
@@ -62,7 +92,7 @@ export default function RestaurantScreen() {
 
   const sections = groups.map(g => ({
     title: g.name,
-    data:  (g.dishes ?? []).filter((d: Dish) => d.is_available),
+    data:  (g.dishes ?? []).filter((d: Dish) => d.visibility !== false),
   }));
 
   return (
@@ -117,7 +147,7 @@ export default function RestaurantScreen() {
                 <Text style={[styles.dishName, { color: text }]}>{dish.name}</Text>
                 {dish.description && <Text style={[styles.dishDesc, { color: muted }]} numberOfLines={2}>{dish.description}</Text>}
                 <View style={styles.dishBottom}>
-                  <Text style={[styles.price, { color: ACCENT }]}>{dish.price.toFixed(2)} €</Text>
+                  <Text style={[styles.price, { color: ACCENT }]}>{dish.price_1.toFixed(2)} €</Text>
                   {qty === 0 ? (
                     <TouchableOpacity style={styles.addBtn} onPress={() => addItem(dish, restaurant!.id, restaurant!.name)}>
                       <Ionicons name="add" size={20} color="#fff" />
